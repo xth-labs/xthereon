@@ -1,0 +1,39 @@
+name: Web Repo Cron Proof
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/1 * * * *"   # every 5 minutes (temporary)
+
+permissions:
+  contents: read
+
+jobs:
+  update-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+        with:
+          repository: xth-labs/xth-labs.github.io
+          token: ${{ secrets.WEB_REPO_TOKEN }}
+          path: web
+
+      - name: Make proof change
+        run: |
+          cd web
+          mkdir -p stats
+          date -u +"%Y-%m-%d %H:%M:%S UTC" > stats/cron-proof.txt
+
+      - name: Commit and push
+        run: |
+          cd web
+          git config user.name "xthereon-bot"
+          git config user.email "bot@xthereon.org"
+          git add stats/cron-proof.txt
+          git commit -m "Cron proof update" || echo "No changes"
+          git push
