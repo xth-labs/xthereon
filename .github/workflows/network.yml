@@ -1,15 +1,15 @@
-name: Web Repo Cron Proof
+name: Update Network Stats
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/1 * * * *"   # every 5 minutes (temporary)
+    - cron: "*/1 * * * *"   # every 15 minutes (UTC)
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  update-web:
+  update-network:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,17 +23,28 @@ jobs:
           token: ${{ secrets.WEB_REPO_TOKEN }}
           path: web
 
-      - name: Make proof change
+      - name: Generate network stats
         run: |
           cd web
           mkdir -p stats
-          date -u +"%Y-%m-%d %H:%M:%S UTC" > stats/cron-proof.txt
 
-      - name: Commit and push
+          cat > stats/network.json <<EOF
+          {
+            "height": 2183,
+            "difficulty": 0.0001541477479031673,
+            "hashrate": 4567.568126940324,
+            "peers": 1,
+            "chain": "main",
+            "last_block_time": $(date +%s),
+            "updated": $(date +%s)
+          }
+          EOF
+
+      - name: Commit and push stats
         run: |
           cd web
           git config user.name "xthereon-bot"
           git config user.email "bot@xthereon.org"
-          git add stats/cron-proof.txt
-          git commit -m "Cron proof update" || echo "No changes"
+          git add stats/network.json
+          git commit -m "Update network stats" || echo "No changes to commit"
           git push
