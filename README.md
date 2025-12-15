@@ -1,3 +1,16 @@
+⚠️ Early Development Notice
+
+XThereon is currently in active development and network bootstrap.
+
+The public repository is not yet fully synced with the running network parameters (seeds, ports, and chain state may differ).
+
+If you are testing or building from source, expect breaking changes until the next tagged release.
+
+Updated source and documentation will be published once the network configuration stabilises.
+
+
+
+
 XThereon Core integration/staging tree
 =====================================
 
