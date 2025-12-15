@@ -23,22 +23,14 @@ jobs:
           token: ${{ secrets.WEB_REPO_TOKEN }}
           path: web
 
-      - name: Generate network stats
+      - name: Fetch live network stats
         run: |
           cd web
           mkdir -p stats
 
-          cat > stats/network.json <<EOF
-          {
-            "height": 2183,
-            "difficulty": 0.0001541477479031673,
-            "hashrate": 4567.568126940324,
-            "peers": 1,
-            "chain": "main",
-            "last_block_time": $(date +%s),
-            "updated": $(date +%s)
-          }
-          EOF
+          echo "Fetching live network stats from node..."
+          curl -f http://xthereon.duckdns.org:8080/network.json \
+            -o stats/network.json
 
       - name: Commit and push stats
         run: |
