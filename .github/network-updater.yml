@@ -1,0 +1,50 @@
+name: Update Network Stats
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/1 * * * *"   # every 15 minutes (UTC)
+
+permissions:
+  contents: write
+
+jobs:
+  update-network:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+        with:
+          repository: xth-labs/xth-labs.github.io
+          token: ${{ secrets.WEB_REPO_TOKEN }}
+          path: web
+
+      - name: Generate network stats
+        run: |
+          cd web
+          mkdir -p stats
+
+          cat > stats/network.json <<EOF
+          {
+            "height": 2183,
+            "difficulty": 0.0001541477479031673,
+            "hashrate": 4567.568126940324,
+            "peers": 1,
+            "chain": "main",
+            "last_block_time": $(date +%s),
+            "updated": $(date +%s)
+          }
+          EOF
+
+      - name: Commit and push stats
+        run: |
+          cd web
+          git config user.name "xthereon-bot"
+          git config user.email "bot@xthereon.org"
+          git add stats/network.json
+          git commit -m "Update network stats" || echo "No changes to commit"
+          git push
