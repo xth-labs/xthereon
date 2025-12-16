@@ -210,3 +210,10 @@ aegis-go-wrapper/
 
 # LevelDB build output (if it's generated)
 src/leveldb/
+
+# CLI binaries
+src/xthereon-cli
+src/aegis-cli
+
+# Downloaded tools
+*.jar
