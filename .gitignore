@@ -59,6 +59,41 @@ test-driver
 depends/built/
 depends/work/
 
+# Add these to your .gitignore:
+
+# Test outputs
+src/test/*.log
+src/test/data/
+
+# Python cache (if you have Python scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and secrets
+.env
+.env.local
+*.key
+*.pem
+wallet.dat
+peers.dat
+
+# Build directory (common in cmake/autotools)
+build/
+out/
+
+# Core dumps
+core
+core.*
+
+# Package manager
+node_modules/
+*.egg-info/
+
+
+
+
+
 # IDE
 .vscode/
 .idea/
