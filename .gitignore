@@ -202,3 +202,11 @@ src/aegisd
 src/aegis-tx
 aegis-go-wrapper/
 *aegis*
+
+# Compiled libraries
+*.a
+*.la
+*.o
+
+# LevelDB build output (if it's generated)
+src/leveldb/
