@@ -1,9 +1,11 @@
 XThereon Core integration/staging tree
 =====================================
 
-[![Build Status](https://travis-ci.org/xthereon-project/xthereon.svg?branch=master)](https://travis-ci.org/xthereon-project/xthereon)
 
-https://xthereon.org
+
+https://xthereon.COM
+[![Discord](https://discord.gg/V2AQqZU9)
+
 
 What is XThereon?
 ----------------
