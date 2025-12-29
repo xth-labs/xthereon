@@ -4,7 +4,7 @@ XThereon Core integration/staging tree
 
 
 https://xthereon.COM
-[![Discord](https://discord.gg/V2AQqZU9)
+https://discord.gg/V2AQqZU9
 
 
 What is XThereon?
